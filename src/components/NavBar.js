@@ -20,23 +20,27 @@ export default function NavBar({appState, setAppState}) {
       <style>
         {`
           .navbar-wrapper {
-            background-color: darkturquoise;
+            background-color: #79bcbf;
             border-top-right-radius: 16px;
             border-top-left-radius: 16px;
             text-align: center;
             width: 100%;
+            position: fixed;
+            bottom: 0px;
+            height: 96px;
+            box-shadow: 0 40px 18px 35px;
           }
 
           .navbar-button-row {
             display: inline-flex;
             gap: 24px;
-            padding-top: 8px;
+            padding-top: 16px;
             padding-bottom: 16px;
           }
 
           .navbar-buttons {
-            padding: 24px;
-            background-color: green;
+            padding: 18px;
+            background-color: #457b9d;
             border-radius: 16px;
           }
         `}

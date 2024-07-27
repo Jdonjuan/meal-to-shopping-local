@@ -13,9 +13,90 @@ function App() {
   let defaultData =  {
     activeScreen: "ShoppingList",
     shoppingList: [
-      "Milk",
-      "Cheese",
-      "Yogurt"
+      {
+        name:"FirstItem",
+        checked: false,
+      },
+      {
+        name:"Cheese",
+        checked: false,
+      },
+      {
+        name:"Yogurt",
+        checked: false,
+      },
+      {
+        name:"Milk",
+        checked: false,
+      },
+      {
+        name:"Cheese",
+        checked: false,
+      },
+      {
+        name:"Yogurt",
+        checked: false,
+      },
+      {
+        name:"Milk",
+        checked: false,
+      },
+      {
+        name:"Cheese",
+        checked: false,
+      },
+      {
+        name:"Yogurt",
+        checked: false,
+      },
+      {
+        name:"Milk",
+        checked: false,
+      },
+      {
+        name:"Cheese",
+        checked: false,
+      },
+      {
+        name:"Yogurt",
+        checked: false,
+      },
+      {
+        name:"Milk",
+        checked: false,
+      },
+      {
+        name:"Cheese",
+        checked: false,
+      },
+      {
+        name:"Yogurt",
+        checked: false,
+      },
+      {
+        name:"Milk",
+        checked: false,
+      },
+      {
+        name:"Cheese",
+        checked: false,
+      },
+      {
+        name:"Yogurt",
+        checked: false,
+      },
+      {
+        name:"Milk",
+        checked: false,
+      },
+      {
+        name:"Cheese",
+        checked: false,
+      },
+      {
+        name:"lastItem",
+        checked: false,
+      },
     ],
     meals: [
       {
@@ -69,15 +150,15 @@ function App() {
           {`
             .app {
               display: flex;
-              background-color: red;
+              background-color: #A8DADC;
               height: 100dvh;
               flex-direction: column;
               justify-content: space-between;
             }
 
             body {
-              background-color: #282c34;
-              color: white;
+              background-color: #021526;
+              color: black;
             }
 
 
