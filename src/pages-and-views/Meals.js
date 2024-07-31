@@ -9,10 +9,10 @@ export default function Meals({appState, setAppState}) {
 
   const [modalOpen, setModalOpen] = useState('none');
   const [modalItem, setModalItem] = useState(null);
-  const [deleteItemIndex, setDeleteItemIndex] = useState(null);
+  const [mealIndex, setMealIndex] = useState(null);
   const [checkAll, setCheckAll] = useState(false);
 
-  function addItem(e) {
+  function createNewMeal(e) {
     // console.log('e.currentTarget', e.currentTarget.value);
     if (e.key == "Enter" && e.currentTarget.value.trim() != '' && !appState.shoppingList.some(({name, checked}, i) => name.toLowerCase() == e.currentTarget.value.trim().toLowerCase())) {
       // if value trimmed is not '' and not already in shoppingList array
@@ -36,6 +36,35 @@ export default function Meals({appState, setAppState}) {
       // console.log('lastItem', lastItem);
       // lastItem.focus();
     }
+  }
+
+  function addMealToShoppingList(index) {
+    // find the meal
+    let mealIngredients = appState.meals[index].ingredients;
+    mealIngredients.forEach((ingredient, i) => {
+      if (ingredient.checked && !appState.shoppingList.some(({name, checked}, i) => name.trim().toLowerCase() == ingredient.name.trim().toLowerCase())) {
+        let newShoppigListArray = [ // with a new array
+          ...appState.shoppingList, // that contains all the old items
+          { name: ingredient.name, checked: false } // and one new item at the end
+        ]
+    
+        setAppState((prev) => {
+          return {...prev, shoppingList: newShoppigListArray}
+        });
+      }
+    });
+
+    // reset ingredients to checked = false
+    let newMealsArray = [...appState.meals];
+    let newMealIngredientsArray = appState.meals[index].ingredients.map((ingredient, i) => {
+      return {...ingredient, checked: false}
+    });
+
+    newMealsArray[index].ingredients = newMealIngredientsArray;
+
+    setAppState((prev) => {
+      return {...prev, meals: newMealsArray}
+    });
   }
 
   function deleteItem(index) {
@@ -194,8 +223,8 @@ export default function Meals({appState, setAppState}) {
           return (
             <div key={index} className='meal-card' onClick={() => {
               setModalItem(item);
-              setDeleteItemIndex(index);
-              setModalOpen(true);
+              setMealIndex(index);
+              setModalOpen("addToShopping");
 
               }}>
               {/* <input  onChange={() => handleCheckboxClick(index)} className='checkboxes'  type='checkbox' checked={item.checked} ></input> */}
@@ -224,13 +253,13 @@ export default function Meals({appState, setAppState}) {
         setModalOpen={setModalOpen}
         modalItem={modalItem}
         setModalItem={setModalItem}
-        deleteItemIndex={deleteItemIndex}
-        setDeleteItemIndex={setDeleteItemIndex}
-        deleteItemFunction={deleteItem}
+        mealIndex={mealIndex}
+        setMealIndex={setMealIndex}
+        addMealFunction={addMealToShoppingList}
 
       />}
 
-      {modalOpen == "newMeal" && <AddMealModal
+      {/* {modalOpen == "newMeal" && <AddMealModal
         appState={appState}
         setAppState={setAppState}
         modalOpen={modalOpen}
@@ -254,7 +283,7 @@ export default function Meals({appState, setAppState}) {
         setDeleteItemIndex={setDeleteItemIndex}
         deleteItemFunction={deleteItem}
 
-      />}
+      />} */}
 
     </div>
   );
