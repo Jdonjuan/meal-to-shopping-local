@@ -110,12 +110,13 @@ export default function ShoppingList({appState, setAppState}) {
         display: flex;
         flex-direction: column;
         align-items: center;
-        background-color: #79bcbf;
+        background-color: #93e2e6;
         position: fixed;
         top: 0px;
         width: 100dvw;
         height: 125px;
-        box-shadow: 0px 3px 13px -4px;
+        box-shadow: 0px -3px 13px -4px;
+        border-bottom: 1px solid gray;
       }
 
       .shopping-heading {
@@ -140,20 +141,21 @@ export default function ShoppingList({appState, setAppState}) {
         display: inline-flex;
         flex-direction: column;
         overflow-y: auto;
-        max-height: calc(100dvh - 228px);
+        max-height: calc(100dvh - 220px);
         // margin-top: 16px;
-        gap: 8px;
+        // gap: 8px;
         width: calc(100dvw - 20px);
         position: fixed;
         top: 126px;
-        padding-top: 8px;
+        padding-top: 16px;
       }
 
       .checklist-item {
         display: flex;
-        // background-color: blue;
         font-size: 20px;
-        // overflow-x: auto;
+        // border-bottom: 1px solid lightgray;
+        padding-top: 4px;
+        padding-bottom: 4px;
       }
 
       .checkboxes {
@@ -172,8 +174,8 @@ export default function ShoppingList({appState, setAppState}) {
         display: flex;
         justify-content: center;
         gap: 32px;
-        padding-top: 8px;
-        padding-bottom: 16px;
+        padding-top: 14px;
+        padding-bottom: 14px;
       }
 
       .delete-item-icon {

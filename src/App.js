@@ -100,20 +100,44 @@ function App() {
     ],
     meals: [
       {
-        name: "hamburgers",
+        name: "Hamburgers",
         image: {
           source: "./resources/HamburerImage",
           alt: "picture of a hamburger"
         },
         ingredients: [
-          "Buns",
-          "Patties",
-          "Lettuce",
-          "Tomato",
-          "Onion",
-          "Cheese",
-          "Ketchup",
-          "Mustard",
+          {
+            name:"Buns",
+            checked: true,
+          },
+          {
+            name:"Patties",
+            checked: true,
+          },
+          {
+            name:"Tomatoes",
+            checked: true,
+          },
+          {
+            name:"Lettuce",
+            checked: true,
+          },
+          {
+            name:"Onions",
+            checked: true,
+          },
+          {
+            name:"Cheese",
+            checked: true,
+          },
+          {
+            name:"Ketchup",
+            checked: true,
+          },
+          {
+            name:"Mustard",
+            checked: true,
+          },
         ]
       },
       {
@@ -150,7 +174,7 @@ function App() {
           {`
             .app {
               display: flex;
-              background-color: #A8DADC;
+              background-color: #dcf0f1;
               height: 100dvh;
               flex-direction: column;
               justify-content: space-between;
@@ -164,7 +188,7 @@ function App() {
 
           `}
         </style>
-        {appState.activeScreen == "ShoppingList" ? <ShoppingList appState={appState} setAppState={setAppState} /> : <Meals />}
+        {appState.activeScreen == "ShoppingList" ? <ShoppingList appState={appState} setAppState={setAppState} /> : <Meals appState={appState} setAppState={setAppState}/>}
         <NavBar appState={appState} setAppState={setAppState}/>
     </div>
     </>
