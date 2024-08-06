@@ -41,23 +41,30 @@ export default function Meals({appState, setAppState}) {
   function addMealToShoppingList(index) {
     // find the meal
     let mealIngredients = appState.meals[index].ingredients;
+    let newShoppigListArray = [ // new array
+      ...appState.shoppingList, // that contains all the old items
+    ]
     mealIngredients.forEach((ingredient, i) => {
       if (ingredient.checked && !appState.shoppingList.some(({name, checked}, i) => name.trim().toLowerCase() == ingredient.name.trim().toLowerCase())) {
-        let newShoppigListArray = [ // with a new array
-          ...appState.shoppingList, // that contains all the old items
+        newShoppigListArray = [ // with a new array
+          ...newShoppigListArray, // that contains all the old items
           { name: ingredient.name, checked: false } // and one new item at the end
         ]
     
-        setAppState((prev) => {
-          return {...prev, shoppingList: newShoppigListArray}
-        });
+        // setAppState((prev) => {
+        //   return {...prev, shoppingList: newShoppigListArray}
+        // });
       }
+    });
+
+    setAppState((prev) => {
+      return {...prev, shoppingList: newShoppigListArray}
     });
 
     // reset ingredients to checked = false
     let newMealsArray = [...appState.meals];
     let newMealIngredientsArray = appState.meals[index].ingredients.map((ingredient, i) => {
-      return {...ingredient, checked: false}
+      return {...ingredient, checked: true}
     });
 
     newMealsArray[index].ingredients = newMealIngredientsArray;
@@ -65,6 +72,8 @@ export default function Meals({appState, setAppState}) {
     setAppState((prev) => {
       return {...prev, meals: newMealsArray}
     });
+
+    setModalOpen('none');
   }
 
   function deleteItem(index) {
@@ -132,6 +141,7 @@ export default function Meals({appState, setAppState}) {
         display: flex;
         flex-direction: column;
         align-items: center;
+        z-index: 2
       }
 
       .page-header {
@@ -178,7 +188,7 @@ export default function Meals({appState, setAppState}) {
         top: 126px;
         padding-top: 16px;
         gap: 12px;
-
+        max-width: 400px;
       }
 
       .meal-card {
@@ -186,6 +196,7 @@ export default function Meals({appState, setAppState}) {
         box-shadow: 0 0 9px -1px;
         margin: 8px;
         border-radius: 14px;
+        cursor: pointer;
       }
 
       .checkboxes {
@@ -198,6 +209,7 @@ export default function Meals({appState, setAppState}) {
        border: none;
        padding: 8px;
        border-radius: 10px;
+       cursor: pointer;
       }
 
       .checklist-actions-row {
@@ -239,11 +251,11 @@ export default function Meals({appState, setAppState}) {
           )
 
         })}
-        {appState.shoppingList.length <= 0 && <p>No items</p>}
-        <div className='checklist-actions-row'>
+        {/* {appState.shoppingList.length <= 0 ? <p>No items</p> : <div className='checklist-actions-row'>
           <button onClick={uncheckAllClick} className='uncheck-all-button' >Un/check All</button>
           <button onClick={deleteAllClick} className='delete-all-button'>Delete All</button>
-        </div>
+        </div> } */}
+        
       </div>
 
       {modalOpen == "addToShopping" && <AddMealModal

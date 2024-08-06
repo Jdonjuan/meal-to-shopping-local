@@ -5,16 +5,9 @@ import closeIcon from '../resources/close_24.svg';
 // import mealsIcon from '../resources/restaurant_24.svg';
 // import shoppingListIcon from '../resources/list_24.svg';
 
-export default function DeleteItemModal({
-  appState, 
-  setAppState, 
-  modalOpen, 
+export default function DeleteAllItemsModal({
   setModalOpen, 
-  modalItem, 
-  setModalItem, 
-  deleteItemIndex, 
-  setDeleteItemIndex, 
-  deleteItemFunction,
+  deleteAllItemsFunction,
 }) {
   // console.log('appState', appState);
 
@@ -23,11 +16,8 @@ export default function DeleteItemModal({
   }
 
   function handleDeleteItem(e) {
-    deleteItemFunction(deleteItemIndex);
-    setDeleteItemIndex(null);
-    setModalItem(null);
+    deleteAllItemsFunction();
     closeModal();
-
   }
 
 
@@ -112,7 +102,7 @@ export default function DeleteItemModal({
             </div>
           </div>
           <div className='modal-body'>
-            Are you sure you want to delete <strong>{modalItem.name}</strong>?
+            Are you sure you want to <strong>delete all items</strong>?
           </div>
           <div className='modal-buttons-row'>
             <button onClick={closeModal}>Cancel</button>

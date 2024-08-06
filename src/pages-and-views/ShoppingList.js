@@ -2,24 +2,62 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import DeleteItemModal from '../components/DeleteItemModal.js';
 import deleteIcon from  '../resources/close_24.svg';
+import addIcon from '../resources/add_24.svg';
+import DeleteAllItemsModal from '../components/DeleteAllItemsModal.js';
 
 
 export default function ShoppingList({appState, setAppState}) {
   // console.log("shoppinglist appstate", appState);
 
-  const [modalOpen, setModalOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState("none");
   const [modalItem, setModalItem] = useState(null);
   const [deleteItemIndex, setDeleteItemIndex] = useState(null);
   const [checkAll, setCheckAll] = useState(false);
 
   function addItem(e) {
     // console.log('e.currentTarget', e.currentTarget.value);
-    if (e.key == "Enter" && e.currentTarget.value.trim() != '' && !appState.shoppingList.some(({name, checked}, i) => name.toLowerCase() == e.currentTarget.value.trim().toLowerCase())) {
+    if (e.key == "Enter") {
+      if (e.currentTarget.value.trim() != '' && !appState.shoppingList.some(({name, checked}, i) => name.toLowerCase() == e.currentTarget.value.trim().toLowerCase())) {
+        // if value trimmed is not '' and not already in shoppingList array
+  
+        let newShoppigListArray = [ // with a new array
+          ...appState.shoppingList, // that contains all the old items
+          { name: e.currentTarget.value, checked: false } // and one new item at the end
+        ]
+    
+        setAppState((prev) => {
+          return {...prev, shoppingList: newShoppigListArray}
+        });
+  
+        // clear input field
+        e.currentTarget.value = '';
+        e.currentTarget.blur();
+        let checklistContainer = document.querySelector('.checklist-container');
+        checklistContainer.scrollTop = checklistContainer.scrollHeight;
+        // let lastItemIndex = document.querySelector('.checklist-container').children.length + 1 ;
+        // let lastItem = document.querySelector(`.checklist-container > div:nth-child(${lastItemIndex}) > :first-child`);
+        // console.log('lastItem', lastItem);
+        // lastItem.focus();
+      }
+      else {
+        // clear input field
+        e.currentTarget.value = '';
+        e.currentTarget.blur();
+        let checklistContainer = document.querySelector('.checklist-container');
+        checklistContainer.scrollTop = checklistContainer.scrollHeight;
+      }
+    }
+  }
+
+  function handleAddItemButtonClick(e) {
+    let inputField = e.currentTarget.parentElement.firstChild;
+    // console.log('inputField', inputField);
+    if (inputField.value.trim() != '' && !appState.shoppingList.some(({name, checked}, i) => name.toLowerCase() == inputField.value.trim().toLowerCase())) {
       // if value trimmed is not '' and not already in shoppingList array
 
       let newShoppigListArray = [ // with a new array
         ...appState.shoppingList, // that contains all the old items
-        { name: e.currentTarget.value, checked: false } // and one new item at the end
+        { name: inputField.value, checked: false } // and one new item at the end
       ]
   
       setAppState((prev) => {
@@ -27,14 +65,21 @@ export default function ShoppingList({appState, setAppState}) {
       });
 
       // clear input field
-      e.currentTarget.value = '';
-      e.currentTarget.blur();
+      inputField.value = '';
+      inputField.blur();
       let checklistContainer = document.querySelector('.checklist-container');
       checklistContainer.scrollTop = checklistContainer.scrollHeight;
       // let lastItemIndex = document.querySelector('.checklist-container').children.length + 1 ;
       // let lastItem = document.querySelector(`.checklist-container > div:nth-child(${lastItemIndex}) > :first-child`);
       // console.log('lastItem', lastItem);
       // lastItem.focus();
+    }
+    else {
+      // clear input field
+      inputField.value = '';
+      inputField.blur();
+      let checklistContainer = document.querySelector('.checklist-container');
+      checklistContainer.scrollTop = checklistContainer.scrollHeight;
     }
   }
 
@@ -91,7 +136,6 @@ export default function ShoppingList({appState, setAppState}) {
     setAppState((prev) => {
       return {...prev, shoppingList: newShoppigListArray}
     });
-
   }
 
   return (
@@ -103,6 +147,7 @@ export default function ShoppingList({appState, setAppState}) {
         display: flex;
         flex-direction: column;
         align-items: center;
+        z-index 2;
       }
 
       .page-header {
@@ -125,8 +170,12 @@ export default function ShoppingList({appState, setAppState}) {
         // top: 0px;
       }
 
+      .add-item-row {
+        display: flex;
+      }
+
       .add-item-input-field {
-        width: 250px;
+        width: 248px;
         height: 32px;
         font-size: 20px;
         // position: fixed;
@@ -134,6 +183,14 @@ export default function ShoppingList({appState, setAppState}) {
         border-radius: 8px;
         padding-inline: 8px;
         // box-shadow: 0px 3px 13px -4px;
+      }
+
+      .add-item-button {
+        background-color: #457b9d;
+        border-radius: 12px;
+        padding: 6px;
+        margin: 0 4px;
+        cursor: pointer;
       }
 
       .checklist-container {
@@ -148,6 +205,7 @@ export default function ShoppingList({appState, setAppState}) {
         position: fixed;
         top: 126px;
         padding-top: 16px;
+        max-width: 400px;
       }
 
       .checklist-item {
@@ -168,6 +226,7 @@ export default function ShoppingList({appState, setAppState}) {
        border: none;
        padding: 8px;
        border-radius: 10px;
+       cursor: pointer;
       }
 
       .checklist-actions-row {
@@ -186,7 +245,10 @@ export default function ShoppingList({appState, setAppState}) {
 
       <div className='page-header'>
         <h1 className='shopping-heading'>Shopping List</h1>
-        <input className='add-item-input-field' type='text' onKeyDown={addItem} ></input>
+        <div className='add-item-row'>
+        <input className='add-item-input-field' type='text' onKeyDown={addItem} placeholder='Add Item...' ></input>
+        <img className='add-item-button' src={addIcon} alt="add item icon" onClick={handleAddItemButtonClick} />
+        </div>
       </div>
       <div className='checklist-container'>
         {appState.shoppingList.map((item, index) => {
@@ -197,21 +259,20 @@ export default function ShoppingList({appState, setAppState}) {
               <img className='delete-item-icon' src={deleteIcon} alt="delete item icon" onClick={() => {
                 setModalItem(item);
                 setDeleteItemIndex(index);
-                setModalOpen(true);
+                setModalOpen("deleteItem");
 
                 }} />
             </div>
           )
 
         })}
-        {appState.shoppingList.length <= 0 && <p>No items</p>}
-        <div className='checklist-actions-row'>
+        {appState.shoppingList.length <= 0 ? <p>No items</p> : <div className='checklist-actions-row'>
           <button onClick={uncheckAllClick} className='uncheck-all-button' >Un/check All</button>
-          <button onClick={deleteAllClick} className='delete-all-button'>Delete All</button>
-        </div>
+          <button onClick={() => setModalOpen("Delete All")} className='delete-all-button'>Delete All</button>
+        </div> }
       </div>
 
-      {modalOpen && <DeleteItemModal 
+      {modalOpen == "deleteItem" && <DeleteItemModal 
         appState={appState} 
         setAppState={setAppState} 
         modalOpen={modalOpen} 
@@ -221,6 +282,11 @@ export default function ShoppingList({appState, setAppState}) {
         deleteItemIndex={deleteItemIndex}
         setDeleteItemIndex={setDeleteItemIndex}
         deleteItemFunction={deleteItem}
+        />}
+
+      {modalOpen == "Delete All" && <DeleteAllItemsModal 
+        setModalOpen={setModalOpen}
+        deleteAllItemsFunction={deleteAllClick}
         />}
 
     </div>

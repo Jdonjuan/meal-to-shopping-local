@@ -138,6 +138,82 @@ function App() {
             name:"Mustard",
             checked: true,
           },
+          {
+            name:"Ingredient1",
+            checked: true,
+          },
+          {
+            name:"Ingredient2",
+            checked: true,
+          },
+          {
+            name:"Ingredient3",
+            checked: true,
+          },
+          {
+            name:"Ingredient4",
+            checked: true,
+          },
+          {
+            name:"Ingredient5",
+            checked: true,
+          },
+          {
+            name:"Ingredient6",
+            checked: true,
+          },
+          {
+            name:"Ingredient7",
+            checked: true,
+          },
+          {
+            name:"Ingredient8",
+            checked: true,
+          },
+          {
+            name:"Ingredient9",
+            checked: true,
+          },
+          {
+            name:"Ingredient10",
+            checked: true,
+          },
+          {
+            name:"Ingredient11",
+            checked: true,
+          },
+          {
+            name:"Ingredient12",
+            checked: true,
+          },
+          {
+            name:"Ingredient13",
+            checked: true,
+          },
+          {
+            name:"Ingredient14",
+            checked: true,
+          },
+          {
+            name:"Ingredient15",
+            checked: true,
+          },
+          {
+            name:"Ingredient16",
+            checked: true,
+          },
+          {
+            name:"Ingredient17",
+            checked: true,
+          },
+          {
+            name:"Ingredient18",
+            checked: true,
+          },
+          {
+            name:"Ingredient19",
+            checked: true,
+          },
         ]
       },
       {
@@ -147,8 +223,14 @@ function App() {
           alt: "picture of a hamburger"
         },
         ingredients: [
-          "Cereal",
-          "Milk",
+          {
+            name:"Cereal",
+            checked: true,
+          },
+          {
+            name:"Milk",
+            checked: true,
+          },
         ]
       }
     ]
@@ -158,7 +240,7 @@ function App() {
 
   const [appState, setAppState] = useState(localData || defaultData);
 
-  console.log('appState app', appState);
+  // console.log('appState app', appState);
 
   // update local storage when appState is updated. 
   useEffect(() => {
