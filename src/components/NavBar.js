@@ -49,8 +49,8 @@ export default function NavBar({appState, setAppState}) {
       </style>
       <div className='navbar-wrapper'>
         <div className='navbar-button-row'>
-          <img src={mealsIcon} className="navbar-buttons" style={{ boxShadow: appState.activeScreen == "Meals" ? "0 0px 6px 1px yellow" : "none" }} alt="Meals" onClick={handleMealsClick} />
-          <img src={shoppingListIcon} className="navbar-buttons" style={{ boxShadow: appState.activeScreen == "ShoppingList" ? "0 0px 6px 1px yellow"  : "none" }} alt="Shopping List" onClick={handleShoppingListClick} />
+          <img src={mealsIcon} className="navbar-buttons" style={{ boxShadow: appState.activeScreen == "Meals" ? "#dcf0f1 0px 0px 6px 5px" : "none" }} alt="Meals" onClick={handleMealsClick} />
+          <img src={shoppingListIcon} className="navbar-buttons" style={{ boxShadow: appState.activeScreen == "ShoppingList" ? "#dcf0f1 0px 0px 6px 5px"  : "none" }} alt="Shopping List" onClick={handleShoppingListClick} />
 
         </div>
       </div>

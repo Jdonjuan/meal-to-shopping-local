@@ -187,7 +187,7 @@ export default function AddMealModal({
           }
 
           .uncheck-checkbox {
-            height: 21px;
+            height: 18px;
           }
 
           .checklist-item {
@@ -247,7 +247,7 @@ export default function AddMealModal({
           <div className='checklist-container'>
             {modalItem.ingredients.length <= 0 ? <p>No items</p> : <div className='checklist-item'>
               <input type="checkbox" onChange={uncheckAllClick} className='checkboxes uncheck-checkbox' checked={!checkAll}></input>
-              <label>Un/check All</label>
+              <label>{checkAll ? "Check all" : "Uncheck all"}</label>
               {/* <button onClick={() => setModalOpen("Delete All")} className='delete-all-button'>Delete All</button> */}
             </div> }
             {modalItem.ingredients.length >= 1 && <hr className='uncheck-all-hr'></hr>}

@@ -2,6 +2,7 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import deleteIcon from  '../resources/close_24.svg';
 import AddMealModal from '../components/AddMealModal.js';
+import NewMealModal from '../components/NewMealModal.js';
 
 
 export default function Meals({appState, setAppState}) {
@@ -12,30 +13,18 @@ export default function Meals({appState, setAppState}) {
   const [mealIndex, setMealIndex] = useState(null);
   const [checkAll, setCheckAll] = useState(false);
 
-  function createNewMeal(e) {
-    // console.log('e.currentTarget', e.currentTarget.value);
-    if (e.key == "Enter" && e.currentTarget.value.trim() != '' && !appState.shoppingList.some(({name, checked}, i) => name.toLowerCase() == e.currentTarget.value.trim().toLowerCase())) {
-      // if value trimmed is not '' and not already in shoppingList array
+  function createNewMeal(newMeal) {
+    let newMealsArray = [ // with a new array
+      ...appState.meals, // that contains all the old items
+      { ...newMeal } // and one new item at the end
+    ]
 
-      let newShoppigListArray = [ // with a new array
-        ...appState.shoppingList, // that contains all the old items
-        { name: e.currentTarget.value, checked: false } // and one new item at the end
-      ]
-  
-      setAppState((prev) => {
-        return {...prev, shoppingList: newShoppigListArray}
-      });
+    setAppState((prev) => {
+      return {...prev, meals: newMealsArray}
+    });
 
-      // clear input field
-      e.currentTarget.value = '';
-      e.currentTarget.blur();
-      let checklistContainer = document.querySelector('.checklist-container');
-      checklistContainer.scrollTop = checklistContainer.scrollHeight;
-      // let lastItemIndex = document.querySelector('.checklist-container').children.length + 1 ;
-      // let lastItem = document.querySelector(`.checklist-container > div:nth-child(${lastItemIndex}) > :first-child`);
-      // console.log('lastItem', lastItem);
-      // lastItem.focus();
-    }
+    let mealsContainer = document.querySelector('.meals-container');
+    mealsContainer.scrollTop = mealsContainer.scrollHeight;
   }
 
   function addMealToShoppingList(index) {
@@ -160,8 +149,18 @@ export default function Meals({appState, setAppState}) {
 
       .meals-heading {
         margin-block-start: 12px;
+        margin-block-end: 8px;
         // position: fixed;
         // top: 0px;
+      }
+
+      .new-meal-button {
+        background-color: #457b9d;
+        border-radius: 12px;
+        padding: 12px;
+        margin: 0 4px;
+        cursor: pointer;
+        font-size: 16px;
       }
 
       .add-item-input-field {
@@ -228,6 +227,7 @@ export default function Meals({appState, setAppState}) {
 
       <div className='page-header'>
         <h1 className='meals-heading'>Meals</h1>
+        <button className='new-meal-button' onClick={() => setModalOpen("newMeal")}>New Meal</button>
         {/* <input className='add-item-input-field' type='text' onKeyDown={addItem} ></input> */}
       </div>
       <div className='meals-container'>
@@ -271,20 +271,16 @@ export default function Meals({appState, setAppState}) {
 
       />}
 
-      {/* {modalOpen == "newMeal" && <AddMealModal
+      {modalOpen == "newMeal" && <NewMealModal
         appState={appState}
         setAppState={setAppState}
         modalOpen={modalOpen}
         setModalOpen={setModalOpen}
-        modalItem={modalItem}
-        setModalItem={setModalItem}
-        deleteItemIndex={deleteItemIndex}
-        setDeleteItemIndex={setDeleteItemIndex}
-        deleteItemFunction={deleteItem}
+        newMealFunction={createNewMeal}
 
       />}
 
-      {modalOpen == "editMeal" && <AddMealModal
+      {/* {modalOpen == "editMeal" && <NewMealModal
         appState={appState}
         setAppState={setAppState}
         modalOpen={modalOpen}

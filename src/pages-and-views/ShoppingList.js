@@ -246,8 +246,8 @@ export default function ShoppingList({appState, setAppState}) {
       <div className='page-header'>
         <h1 className='shopping-heading'>Shopping List</h1>
         <div className='add-item-row'>
-        <input className='add-item-input-field' type='text' onKeyDown={addItem} placeholder='Add Item...' ></input>
-        <img className='add-item-button' src={addIcon} alt="add item icon" onClick={handleAddItemButtonClick} />
+          <input className='add-item-input-field' type='text' onKeyDown={addItem} placeholder='Add Item...' ></input>
+          <img className='add-item-button' src={addIcon} alt="add item icon" onClick={handleAddItemButtonClick} />
         </div>
       </div>
       <div className='checklist-container'>
