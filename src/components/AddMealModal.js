@@ -238,7 +238,7 @@ export default function AddMealModal({
               {modalItem.name}
             </div>
             <div className='meal-modal-edit-button'>
-              <img src={editIcon} alt="close modal button" />
+              <img src={editIcon} onClick={() => setModalOpen("editMeal")} alt="close modal button" />
             </div>
             <div className='meal-modal-close-button'>
               <img src={closeIcon} alt="close modal button" onClick={closeModal} />

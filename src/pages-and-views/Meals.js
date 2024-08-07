@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import deleteIcon from  '../resources/close_24.svg';
 import AddMealModal from '../components/AddMealModal.js';
 import NewMealModal from '../components/NewMealModal.js';
+import EditMealModal from '../components/EditMealModal.js';
 
 
 export default function Meals({appState, setAppState}) {
@@ -65,11 +66,20 @@ export default function Meals({appState, setAppState}) {
     setModalOpen('none');
   }
 
-  function deleteItem(index) {
-    let newShoppigListArray = appState.shoppingList.filter((item, i) => i != index );
+  function updateMeal(index, updatedMeal) {
+    let newMealsArray = [...appState.meals];
+    newMealsArray[index] = updatedMeal;
 
     setAppState((prev) => {
-      return {...prev, shoppingList: newShoppigListArray}
+      return {...prev, meals: newMealsArray}
+    });
+  }
+
+  function deleteMeal(index) {
+    let newMealsArray = appState.meals.filter((item, i) => i != index );
+
+    setAppState((prev) => {
+      return {...prev, meals: newMealsArray}
     });
   }
 
@@ -277,6 +287,18 @@ export default function Meals({appState, setAppState}) {
         modalOpen={modalOpen}
         setModalOpen={setModalOpen}
         newMealFunction={createNewMeal}
+
+      />}
+
+      {modalOpen == "editMeal" && <EditMealModal
+        appState={appState}
+        setAppState={setAppState}
+        modalOpen={modalOpen}
+        setModalOpen={setModalOpen}
+        modalItem={modalItem}
+        setModalItem={setModalItem}
+        mealIndex={mealIndex}
+        setMealIndex={setMealIndex}
 
       />}
 
