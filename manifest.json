@@ -1,6 +1,6 @@
 {
-  "short_name": "Meal > Shopping List",
-  "name": "Meal To Shopping List",
+  "short_name": "Shoplist",
+  "name": "Shoplist: Meal To Shopping List app",
   "icons": [
     {
       "src": "restaurant_menu_192.png",
