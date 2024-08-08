@@ -165,7 +165,7 @@ export default function ShoppingList({appState, setAppState}) {
       }
 
       .shopping-heading {
-        margin-block-start: 12px;
+        // margin-block-start: 12px;
         // position: fixed;
         // top: 0px;
       }

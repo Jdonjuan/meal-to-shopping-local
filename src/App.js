@@ -11,93 +11,8 @@ function App() {
   /////////////////////
 
   let defaultData =  {
-    activeScreen: "ShoppingList",
-    shoppingList: [
-      {
-        name:"FirstItem",
-        checked: false,
-      },
-      {
-        name:"Cheese",
-        checked: false,
-      },
-      {
-        name:"Yogurt",
-        checked: false,
-      },
-      {
-        name:"Milk",
-        checked: false,
-      },
-      {
-        name:"Cheese",
-        checked: false,
-      },
-      {
-        name:"Yogurt",
-        checked: false,
-      },
-      {
-        name:"Milk",
-        checked: false,
-      },
-      {
-        name:"Cheese",
-        checked: false,
-      },
-      {
-        name:"Yogurt",
-        checked: false,
-      },
-      {
-        name:"Milk",
-        checked: false,
-      },
-      {
-        name:"Cheese",
-        checked: false,
-      },
-      {
-        name:"Yogurt",
-        checked: false,
-      },
-      {
-        name:"Milk",
-        checked: false,
-      },
-      {
-        name:"Cheese",
-        checked: false,
-      },
-      {
-        name:"Yogurt",
-        checked: false,
-      },
-      {
-        name:"Milk",
-        checked: false,
-      },
-      {
-        name:"Cheese",
-        checked: false,
-      },
-      {
-        name:"Yogurt",
-        checked: false,
-      },
-      {
-        name:"Milk",
-        checked: false,
-      },
-      {
-        name:"Cheese",
-        checked: false,
-      },
-      {
-        name:"lastItem",
-        checked: false,
-      },
-    ],
+    activeScreen: "Meals",
+    shoppingList: [],
     meals: [
       {
         name: "Hamburgers",
@@ -107,11 +22,11 @@ function App() {
         },
         ingredients: [
           {
-            name:"Buns",
+            name:"Hamburger Buns",
             checked: true,
           },
           {
-            name:"Patties",
+            name:"Hamburger Patties",
             checked: true,
           },
           {
@@ -127,7 +42,7 @@ function App() {
             checked: true,
           },
           {
-            name:"Cheese",
+            name:"Sliced Cheese",
             checked: true,
           },
           {
@@ -138,101 +53,154 @@ function App() {
             name:"Mustard",
             checked: true,
           },
+        ]
+      },
+      {
+        name: "Sandwiches",
+        ingredients: [
           {
-            name:"Ingredient1",
+            name:"Sandwich Bread",
             checked: true,
           },
           {
-            name:"Ingredient2",
+            name:"Lettuce",
             checked: true,
           },
           {
-            name:"Ingredient3",
+            name:"Tomatoes",
             checked: true,
           },
           {
-            name:"Ingredient4",
+            name:"Lunch Meat",
             checked: true,
           },
           {
-            name:"Ingredient5",
+            name:"Mayo",
             checked: true,
           },
           {
-            name:"Ingredient6",
-            checked: true,
-          },
-          {
-            name:"Ingredient7",
-            checked: true,
-          },
-          {
-            name:"Ingredient8",
-            checked: true,
-          },
-          {
-            name:"Ingredient9",
-            checked: true,
-          },
-          {
-            name:"Ingredient10",
-            checked: true,
-          },
-          {
-            name:"Ingredient11",
-            checked: true,
-          },
-          {
-            name:"Ingredient12",
-            checked: true,
-          },
-          {
-            name:"Ingredient13",
-            checked: true,
-          },
-          {
-            name:"Ingredient14",
-            checked: true,
-          },
-          {
-            name:"Ingredient15",
-            checked: true,
-          },
-          {
-            name:"Ingredient16",
-            checked: true,
-          },
-          {
-            name:"Ingredient17",
-            checked: true,
-          },
-          {
-            name:"Ingredient18",
-            checked: true,
-          },
-          {
-            name:"Ingredient19",
+            name:"Mustard",
             checked: true,
           },
         ]
       },
       {
-        name: "Cereal",
-        image: {
-          source: "./resources/HamburerImage",
-          alt: "picture of a hamburger"
-        },
+        name: "Spaghetti & Meatballs",
         ingredients: [
           {
-            name:"Cereal",
+            name:"Spaghetti",
             checked: true,
           },
           {
-            name:"Milk",
+            name:"Meatballs",
+            checked: true,
+          },
+          {
+            name:"Spaghetti Sauce",
             checked: true,
           },
         ]
-      }
+      },
+      {
+        name: "Chicken Alfredo",
+        ingredients: [
+          {
+            name:"Chicken Breasts",
+            checked: true,
+          },
+          {
+            name:"Pasta",
+            checked: true,
+          },
+          {
+            name:"Alfredo Sauce",
+            checked: true,
+          },
+        ]
+      },
+      {
+        name: "Pizza",
+        ingredients: [
+          {
+            name:"Pizza Sauce",
+            checked: true,
+          },
+          {
+            name:"Shredded Cheese",
+            checked: true,
+          },
+          {
+            name:"Pizza Toppings",
+            checked: true,
+          },
+          {
+            name:"Pizza Dough",
+            checked: true,
+          },
+        ]
+      },
+      {
+        name: "Chili",
+        ingredients: [
+          {
+            name:"Canned Beans",
+            checked: true,
+          },
+          {
+            name:"Diced Tomatoes",
+            checked: true,
+          },
+          {
+            name:"Ground Beef",
+            checked: true,
+          },
+          {
+            name:"Onions",
+            checked: true,
+          },
+          {
+            name:"Shredded Cheese",
+            checked: true,
+          },
+          {
+            name:"Chili Spices",
+            checked: true,
+          },
+        ]
+      },
+      {
+        name: "Kids Snacks",
+        ingredients: [
+          {
+            name:"Chicken Nuggets",
+            checked: true,
+          },
+          {
+            name:"Kids Yogurt",
+            checked: true,
+          },
+          {
+            name:"Mini Pizzas",
+            checked: true,
+          },
+          {
+            name:"Apple Sauce",
+            checked: true,
+          },
+          {
+            name:"Cheese Sticks",
+            checked: true,
+          },
+          {
+            name:"GoldFish",
+            checked: true,
+          },
+          {
+            name:"Fruit Snacks",
+            checked: true,
+          },
+        ]
+      },
     ]
   }
 
@@ -256,10 +224,11 @@ function App() {
           {`
             .app {
               display: flex;
-              background-color: #dcf0f1;
+              background-color: #ebfeff;
               height: 100dvh;
               flex-direction: column;
               justify-content: space-between;
+              font-family: "Comfortaa", sans-serif;
             }
 
             body {

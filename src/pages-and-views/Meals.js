@@ -158,8 +158,8 @@ export default function Meals({appState, setAppState}) {
       }
 
       .meals-heading {
-        margin-block-start: 12px;
-        margin-block-end: 8px;
+        // margin-block-start: 12px;
+        // margin-block-end: 8px;
         // position: fixed;
         // top: 0px;
       }
@@ -167,7 +167,7 @@ export default function Meals({appState, setAppState}) {
       .new-meal-button {
         background-color: #457b9d;
         border-radius: 12px;
-        padding: 12px;
+        // padding: 12px;
         margin: 0 4px;
         cursor: pointer;
         font-size: 16px;
@@ -237,7 +237,7 @@ export default function Meals({appState, setAppState}) {
 
       <div className='page-header'>
         <h1 className='meals-heading'>Meals</h1>
-        <button className='new-meal-button' onClick={() => setModalOpen("newMeal")}>New Meal</button>
+        <button className='new-meal-button' onClick={() => setModalOpen("newMeal")}>Create New Meal</button>
         {/* <input className='add-item-input-field' type='text' onKeyDown={addItem} ></input> */}
       </div>
       <div className='meals-container'>
