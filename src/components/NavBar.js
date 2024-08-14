@@ -2,6 +2,7 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import mealsIcon from '../resources/restaurant_24.svg';
 import shoppingListIcon from '../resources/list_24.svg';
+import settingsIcon from '../resources/settings_24.svg';
 
 export default function NavBar({appState, setAppState}) {
   // console.log('appState', appState);
@@ -12,6 +13,10 @@ export default function NavBar({appState, setAppState}) {
 
   function handleShoppingListClick(e) {
     setAppState({...appState, activeScreen: "ShoppingList"});
+  }
+
+  function handleSettingsClick(e) {
+    setAppState({...appState, activeScreen: "Settings"});
   }
 
 
@@ -48,10 +53,11 @@ export default function NavBar({appState, setAppState}) {
         `}
       </style>
       <div className='navbar-wrapper'>
+      
         <div className='navbar-button-row'>
           <img src={mealsIcon} className="navbar-buttons" style={{ boxShadow: appState.activeScreen == "Meals" ? "#dcf0f1 0px 0px 6px 5px" : "none" }} alt="Meals" onClick={handleMealsClick} />
           <img src={shoppingListIcon} className="navbar-buttons" style={{ boxShadow: appState.activeScreen == "ShoppingList" ? "#dcf0f1 0px 0px 6px 5px"  : "none" }} alt="Shopping List" onClick={handleShoppingListClick} />
-
+          <img src={settingsIcon} className="navbar-buttons" style={{ boxShadow: appState.activeScreen == "Settings" ? "#dcf0f1 0px 0px 6px 5px" : "none" }} alt="Settings" onClick={handleSettingsClick} />
         </div>
       </div>
 

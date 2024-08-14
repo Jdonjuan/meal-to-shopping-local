@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import ShoppingList from './pages-and-views/ShoppingList';
 import Meals from './pages-and-views/Meals';
 import NavBar from './components/NavBar';
+import Settings from './pages-and-views/Settings';
 
 function App() {
   //////////////////////
@@ -239,7 +240,9 @@ function App() {
 
           `}
         </style>
-        {appState.activeScreen == "ShoppingList" ? <ShoppingList appState={appState} setAppState={setAppState} /> : <Meals appState={appState} setAppState={setAppState}/>}
+        {appState.activeScreen == "ShoppingList" && <ShoppingList appState={appState} setAppState={setAppState} />}\
+        {appState.activeScreen == "Meals" && <Meals appState={appState} setAppState={setAppState}/>}
+        {appState.activeScreen == "Settings" && <Settings appState={appState} setAppState={setAppState}/>}
         <NavBar appState={appState} setAppState={setAppState}/>
     </div>
     </>

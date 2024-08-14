@@ -6,13 +6,52 @@ import NewMealModal from '../components/NewMealModal.js';
 import EditMealModal from '../components/EditMealModal.js';
 
 
-export default function Meals({appState, setAppState}) {
+export default function Settings({appState, setAppState}) {
   // console.log("shoppinglist appstate", appState);
 
   const [modalOpen, setModalOpen] = useState('none');
   const [modalItem, setModalItem] = useState(null);
   const [mealIndex, setMealIndex] = useState(null);
   const [checkAll, setCheckAll] = useState(false);
+
+  function handleExportClick(e) {
+    const blob = new Blob([JSON.stringify(appState, null, 2)], {
+      type: 'application/json',
+    });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.style.display = 'none';
+    a.href = url;
+    // the filename you want
+    a.download = 'What2GetData.json';
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
+    // or you know, something with better UX...
+    // alert('your file has downloaded!'); 
+  }
+
+  function handleImportClick(e) {
+    var files = document.getElementById('selectFiles').files;
+    console.log(files);
+    if (files.length <= 0) {
+      return false;
+    }
+  
+    var fr = new FileReader();
+  
+    fr.onload = function(e) { 
+    console.log(e);
+      var result = JSON.parse(e.target.result);
+      console.log('result', result);
+      setAppState(result);
+      alert('Data successfully uploaded!');
+      // var formatted = JSON.stringify(result, null, 2);
+      //     document.getElementById('result').value = formatted;
+    }
+  
+    fr.readAsText(files.item(0));
+  }
 
   function createNewMeal(newMeal) {
     let newMealsArray = [ // with a new array
@@ -236,39 +275,16 @@ export default function Meals({appState, setAppState}) {
       `}</style>
 
       <div className='page-header'>
-        <h1 className='meals-heading'>Meals & Lists</h1>
-        <button className='new-meal-button' onClick={() => setModalOpen("newMeal")}>Create New Meal</button>
+        <h1 className='meals-heading'>Settings</h1>
+        <button className='new-meal-button' onClick={handleExportClick}>Export App Data</button>
         {/* <input className='add-item-input-field' type='text' onKeyDown={addItem} ></input> */}
       </div>
       <div className='meals-container'>
-        {appState.meals.map((item, index) => {
-          return (
-            <div key={index} className='meal-card' onClick={() => {
-              setModalItem(item);
-              setMealIndex(index);
-              setModalOpen("addToShopping");
-
-              }}>
-              {/* <input  onChange={() => handleCheckboxClick(index)} className='checkboxes'  type='checkbox' checked={item.checked} ></input> */}
-              <h3 className='card-title' >{item.name}</h3>
-              {/* <img className='delete-item-icon' src={deleteIcon} alt="delete item icon" onClick={() => {
-                setModalItem(item);
-                setDeleteItemIndex(index);
-                setModalOpen(true);
-
-                }} /> */}
-            </div>
-          )
-
-        })}
-        {/* {appState.shoppingList.length <= 0 ? <p>No items</p> : <div className='checklist-actions-row'>
-          <button onClick={uncheckAllClick} className='uncheck-all-button' >Un/check All</button>
-          <button onClick={deleteAllClick} className='delete-all-button'>Delete All</button>
-        </div> } */}
-        <br></br>
+        <input type="file" id="selectFiles" defaultValue="" /><br />
+        <button className='new-meal-button' onClick={handleImportClick}>Import App Data</button>
       </div>
 
-      {modalOpen == "addToShopping" && <AddMealModal
+      {/* {modalOpen == "addToShopping" && <AddMealModal
         appState={appState}
         setAppState={setAppState}
         modalOpen={modalOpen}
@@ -279,18 +295,18 @@ export default function Meals({appState, setAppState}) {
         setMealIndex={setMealIndex}
         addMealFunction={addMealToShoppingList}
 
-      />}
+      />} */}
 
-      {modalOpen == "newMeal" && <NewMealModal
+      {/* {modalOpen == "newMeal" && <NewMealModal
         appState={appState}
         setAppState={setAppState}
         modalOpen={modalOpen}
         setModalOpen={setModalOpen}
         newMealFunction={createNewMeal}
 
-      />}
+      />} */}
 
-      {modalOpen == "editMeal" && <EditMealModal
+      {/* {modalOpen == "editMeal" && <EditMealModal
         appState={appState}
         setAppState={setAppState}
         modalOpen={modalOpen}
@@ -300,7 +316,7 @@ export default function Meals({appState, setAppState}) {
         mealIndex={mealIndex}
         setMealIndex={setMealIndex}
 
-      />}
+      />} */}
 
       {/* {modalOpen == "editMeal" && <NewMealModal
         appState={appState}
