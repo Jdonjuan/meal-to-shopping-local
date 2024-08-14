@@ -1,10 +1,11 @@
 {
   "files": {
     "main.css": "/meal-to-shopping-local/static/css/main.e6c13ad2.css",
-    "main.js": "/meal-to-shopping-local/static/js/main.85876d78.js",
+    "main.js": "/meal-to-shopping-local/static/js/main.1d55ca32.js",
     "static/js/453.5dac47df.chunk.js": "/meal-to-shopping-local/static/js/453.5dac47df.chunk.js",
     "static/media/logo.svg": "/meal-to-shopping-local/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
     "index.html": "/meal-to-shopping-local/index.html",
+    "static/media/settings_24.svg": "/meal-to-shopping-local/static/media/settings_24.4f46b93969c652931a7721b19e66cdd0.svg",
     "static/media/edit_24.svg": "/meal-to-shopping-local/static/media/edit_24.5b39b0c4ebe3cb2ee6ce9d0fe259e78b.svg",
     "static/media/delete_24.svg": "/meal-to-shopping-local/static/media/delete_24.b10e4864d682a4eca2d29a4fa18cc73b.svg",
     "static/media/restaurant_24.svg": "/meal-to-shopping-local/static/media/restaurant_24.c95bcbce75709b9e08fd4c070108a43d.svg",
@@ -12,11 +13,11 @@
     "static/media/close_24.svg": "/meal-to-shopping-local/static/media/close_24.e39879f859af04ddc738ee9311083f3f.svg",
     "static/media/add_24.svg": "/meal-to-shopping-local/static/media/add_24.8ddbd09519493fa2d34130f0de8a75d3.svg",
     "main.e6c13ad2.css.map": "/meal-to-shopping-local/static/css/main.e6c13ad2.css.map",
-    "main.85876d78.js.map": "/meal-to-shopping-local/static/js/main.85876d78.js.map",
+    "main.1d55ca32.js.map": "/meal-to-shopping-local/static/js/main.1d55ca32.js.map",
     "453.5dac47df.chunk.js.map": "/meal-to-shopping-local/static/js/453.5dac47df.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e6c13ad2.css",
-    "static/js/main.85876d78.js"
+    "static/js/main.1d55ca32.js"
   ]
 }
