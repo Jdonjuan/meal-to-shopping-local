@@ -44,7 +44,7 @@ export default function Settings({appState, setAppState}) {
     console.log(e);
       var result = JSON.parse(e.target.result);
       console.log('result', result);
-      setAppState(result);
+      setAppState({...result, activeScreen: "ShoppingList"});
       alert('Data successfully uploaded!');
       // var formatted = JSON.stringify(result, null, 2);
       //     document.getElementById('result').value = formatted;
@@ -224,7 +224,7 @@ export default function Settings({appState, setAppState}) {
       }
 
       .meals-container {
-        text-align: center;
+        text-align: start;
         display: inline-flex;
         flex-direction: column;
         overflow-y: auto;
@@ -276,10 +276,13 @@ export default function Settings({appState, setAppState}) {
 
       <div className='page-header'>
         <h1 className='meals-heading'>Settings</h1>
-        <button className='new-meal-button' onClick={handleExportClick}>Export App Data</button>
         {/* <input className='add-item-input-field' type='text' onKeyDown={addItem} ></input> */}
       </div>
       <div className='meals-container'>
+        <h3>Export Data</h3>
+        <button className='new-meal-button' onClick={handleExportClick}>Export App Data Backup</button>
+        <br/>
+        <h3>Import Data</h3>
         <input type="file" id="selectFiles" defaultValue="" /><br />
         <button className='new-meal-button' onClick={handleImportClick}>Import App Data</button>
       </div>
