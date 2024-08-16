@@ -102,7 +102,7 @@ export default function DeleteAllItemsModal({
             </div>
           </div>
           <div className='modal-body'>
-            Are you sure you want to <strong>delete all items</strong>?
+            Are you sure you want to <strong>delete all checked items</strong>?
           </div>
           <div className='modal-buttons-row'>
             <button onClick={closeModal}>Cancel</button>

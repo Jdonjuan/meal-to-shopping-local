@@ -33,7 +33,7 @@ export default function Settings({appState, setAppState}) {
 
   function handleImportClick(e) {
     var files = document.getElementById('selectFiles').files;
-    console.log(files);
+    // console.log(files);
     if (files.length <= 0) {
       return false;
     }
@@ -41,9 +41,9 @@ export default function Settings({appState, setAppState}) {
     var fr = new FileReader();
   
     fr.onload = function(e) { 
-    console.log(e);
+      // console.log(e);
       var result = JSON.parse(e.target.result);
-      console.log('result', result);
+      // console.log('result', result);
       setAppState({...result, activeScreen: "ShoppingList"});
       alert('Data successfully uploaded!');
       // var formatted = JSON.stringify(result, null, 2);

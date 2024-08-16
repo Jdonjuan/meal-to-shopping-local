@@ -3,6 +3,9 @@ import { useEffect, useState } from 'react';
 import DeleteItemModal from '../components/DeleteItemModal.js';
 import deleteIcon from  '../resources/close_24.svg';
 import addIcon from '../resources/add_24.svg';
+import swipeIcon from '../resources/swipe_vertical_24.svg';
+import upIcon from '../resources/arrow_upward_24.svg';
+import downIcon from '../resources/arrow_downward_24.svg';
 import DeleteAllItemsModal from '../components/DeleteAllItemsModal.js';
 
 
@@ -13,6 +16,7 @@ export default function ShoppingList({appState, setAppState}) {
   const [modalItem, setModalItem] = useState(null);
   const [deleteItemIndex, setDeleteItemIndex] = useState(null);
   const [checkAll, setCheckAll] = useState(false);
+  const [reorder, setReorder] = useState(false);
 
   function addItem(e) {
     // console.log('e.currentTarget', e.currentTarget.value);
@@ -138,6 +142,45 @@ export default function ShoppingList({appState, setAppState}) {
     });
   }
 
+  function deleteCheckedClick(e) {
+    let newShoppigListArray = appState.shoppingList.filter((item, i) => !item.checked );
+
+    setAppState((prev) => {
+      return {...prev, shoppingList: newShoppigListArray}
+    });
+  }
+
+  function handleMoveUp(fromIndex) {
+    let toIndex = fromIndex - 1;
+    let newShoppigListArray = [...appState.shoppingList];
+
+    if (toIndex >=0 && toIndex <= appState.shoppingList.length) {
+      var element = newShoppigListArray[fromIndex];
+      newShoppigListArray.splice(fromIndex, 1);
+      newShoppigListArray.splice(toIndex, 0, element);
+
+      setAppState((prev) => {
+        return {...prev, shoppingList: newShoppigListArray}
+      });
+    }
+  }
+
+  function handleMoveDown(fromIndex) {
+    let toIndex = fromIndex + 1;
+    let newShoppigListArray = [...appState.shoppingList];
+
+    if (toIndex >=0 && toIndex <= appState.shoppingList.length) {
+      var element = newShoppigListArray[fromIndex];
+      newShoppigListArray.splice(fromIndex, 1);
+      newShoppigListArray.splice(toIndex, 0, element);
+
+      setAppState((prev) => {
+        return {...prev, shoppingList: newShoppigListArray}
+      });
+    }
+  }
+
+
   return (
     <div className='shopping-list-page'>
       <style>{`
@@ -211,13 +254,14 @@ export default function ShoppingList({appState, setAppState}) {
       .checklist-item {
         display: flex;
         font-size: 20px;
-        // border-bottom: 1px solid lightgray;
+        border-bottom: 1px solid lightgray;
         padding-top: 4px;
         padding-bottom: 4px;
       }
 
       .checkboxes {
-        width: 32px;
+        min-width: 18px;
+        max-width: 32px;
       }
 
       button {
@@ -240,6 +284,16 @@ export default function ShoppingList({appState, setAppState}) {
       .delete-item-icon {
         margin-left: 16px;
       }
+
+      .move-icon {
+        margin-left: 8px;
+        margin-right: 8px;
+      }
+
+      .reorder-button {
+        margin-bottom: 16px;
+        align-self: start;
+      }
       
       `}</style>
 
@@ -251,9 +305,12 @@ export default function ShoppingList({appState, setAppState}) {
         </div>
       </div>
       <div className='checklist-container'>
+        <button className='reorder-button' onClick={() => setReorder(prev => !prev)}>Reorder</button>
         {appState.shoppingList.map((item, index) => {
           return (
-            <div key={index} className='checklist-item'>
+            <div key={index} className='checklist-item' >
+              {reorder && (<img className='move-icon' src={upIcon} alt="move up icon" onClick={() => {handleMoveUp(index)}} />)}
+              {reorder && (<img className='move-icon' src={downIcon} alt="move down icon" onClick={() => {handleMoveDown(index)}} />)}
               <input  onChange={() => handleCheckboxClick(index)} className='checkboxes'  type='checkbox' checked={item.checked} ></input>
               <label style={{ textDecoration: item.checked ? "line-through" : "none" }} >{item.name}</label>
               <img className='delete-item-icon' src={deleteIcon} alt="delete item icon" onClick={() => {
@@ -268,7 +325,7 @@ export default function ShoppingList({appState, setAppState}) {
         })}
         {appState.shoppingList.length <= 0 ? <p>No items</p> : <div className='checklist-actions-row'>
           <button onClick={uncheckAllClick} className='uncheck-all-button' >Un/check All</button>
-          <button onClick={() => setModalOpen("Delete All")} className='delete-all-button'>Delete All</button>
+          <button onClick={() => setModalOpen("Delete All")} className='delete-all-button'>Delete Checked</button>
         </div> }
       </div>
 
@@ -286,7 +343,7 @@ export default function ShoppingList({appState, setAppState}) {
 
       {modalOpen == "Delete All" && <DeleteAllItemsModal 
         setModalOpen={setModalOpen}
-        deleteAllItemsFunction={deleteAllClick}
+        deleteAllItemsFunction={deleteCheckedClick}
         />}
 
     </div>
