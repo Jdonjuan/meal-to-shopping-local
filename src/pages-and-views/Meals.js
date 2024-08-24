@@ -35,17 +35,36 @@ export default function Meals({appState, setAppState}) {
       ...appState.shoppingList, // that contains all the old items
     ]
     mealIngredients.forEach((ingredient, i) => {
-      if (ingredient.checked && !appState.shoppingList.some(({name, checked}, i) => name.trim().toLowerCase() == ingredient.name.trim().toLowerCase())) {
-        newShoppigListArray = [ // with a new array
-          ...newShoppigListArray, // that contains all the old items
-          { name: ingredient.name, checked: false } // and one new item at the end
-        ]
-    
-        // setAppState((prev) => {
-        //   return {...prev, shoppingList: newShoppigListArray}
-        // });
+      if (ingredient.checked ) {
+        appState.shoppingList.forEach(({name, checked, associatedMeals}, i) => {
+          // if item found in shopping list, add meal name to associated meals array
+          if (name.trim().toLowerCase() == ingredient.name.trim().toLowerCase()) {
+            let newAssociatedMealsArray = [];
+            if (associatedMeals) {
+              newAssociatedMealsArray = [...associatedMeals, modalItem.name];
+            }
+            else {
+              newAssociatedMealsArray = [modalItem.name];
+            }
+            newShoppigListArray[i] = {name, checked, associatedMeals: newAssociatedMealsArray};
+          }
+          // else { // if item not found in shopping list, just add the item and create an associated meals array with this meal
+          //   newShoppigListArray = [ // with a new array
+          //     ...newShoppigListArray, // that contains all the old items
+          //     { name: ingredient.name, checked: false, associatedMeals: [name] } // and one new item at the end
+          //   ]
+          // }
+        });
+
+        if (!appState.shoppingList.some(({name, checked}, i) => name.trim().toLowerCase() == ingredient.name.trim().toLowerCase())){
+          newShoppigListArray = [ // with a new array
+            ...newShoppigListArray, // that contains all the old items
+            { name: ingredient.name, checked: false, associatedMeals: [modalItem.name]} // and one new item at the end
+          ]
+        }
       }
     });
+    console.log('newShoppingListArray', newShoppigListArray);
 
     setAppState((prev) => {
       return {...prev, shoppingList: newShoppigListArray}

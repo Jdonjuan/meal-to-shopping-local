@@ -7,6 +7,7 @@ import swipeIcon from '../resources/swipe_vertical_24.svg';
 import upIcon from '../resources/arrow_upward_24.svg';
 import downIcon from '../resources/arrow_downward_24.svg';
 import DeleteAllItemsModal from '../components/DeleteAllItemsModal.js';
+import AssociatedMealsModal from '../components/AssociatedMealsModal.js';
 
 
 export default function ShoppingList({appState, setAppState}) {
@@ -20,36 +21,78 @@ export default function ShoppingList({appState, setAppState}) {
 
   function addItem(e) {
     // console.log('e.currentTarget', e.currentTarget.value);
-    if (e.key == "Enter") {
-      if (e.currentTarget.value.trim() != '' && !appState.shoppingList.some(({name, checked}, i) => name.toLowerCase() == e.currentTarget.value.trim().toLowerCase())) {
-        // if value trimmed is not '' and not already in shoppingList array
+    if (e.key == "Enter" && e.currentTarget.value.trim() != '') {
+      // if (e.currentTarget.value.trim() != '' && !appState.shoppingList.some(({name, checked}, i) => name.toLowerCase() == e.currentTarget.value.trim().toLowerCase())) {
+      //   // if value trimmed is not '' and not already in shoppingList array
   
-        let newShoppigListArray = [ // with a new array
-          ...appState.shoppingList, // that contains all the old items
-          { name: e.currentTarget.value, checked: false } // and one new item at the end
-        ]
+      //   let newShoppigListArray = [ // with a new array
+      //     ...appState.shoppingList, // that contains all the old items
+      //     { name: e.currentTarget.value, checked: false } // and one new item at the end
+      //   ]
     
-        setAppState((prev) => {
-          return {...prev, shoppingList: newShoppigListArray}
-        });
+      //   setAppState((prev) => {
+      //     return {...prev, shoppingList: newShoppigListArray}
+      //   });
   
-        // clear input field
-        e.currentTarget.value = '';
-        e.currentTarget.blur();
-        let checklistContainer = document.querySelector('.checklist-container');
-        checklistContainer.scrollTop = checklistContainer.scrollHeight;
-        // let lastItemIndex = document.querySelector('.checklist-container').children.length + 1 ;
-        // let lastItem = document.querySelector(`.checklist-container > div:nth-child(${lastItemIndex}) > :first-child`);
-        // console.log('lastItem', lastItem);
-        // lastItem.focus();
+      //   // clear input field
+      //   e.currentTarget.value = '';
+      //   e.currentTarget.blur();
+      //   let checklistContainer = document.querySelector('.checklist-container');
+      //   checklistContainer.scrollTop = checklistContainer.scrollHeight;
+      //   // let lastItemIndex = document.querySelector('.checklist-container').children.length + 1 ;
+      //   // let lastItem = document.querySelector(`.checklist-container > div:nth-child(${lastItemIndex}) > :first-child`);
+      //   // console.log('lastItem', lastItem);
+      //   // lastItem.focus();
+      // }
+      // else {
+      //   // clear input field
+      //   e.currentTarget.value = '';
+      //   e.currentTarget.blur();
+      //   let checklistContainer = document.querySelector('.checklist-container');
+      //   checklistContainer.scrollTop = checklistContainer.scrollHeight;
+      // }
+
+      let newShoppigListArray = [ // new array
+        ...appState.shoppingList, // that contains all the old items
+      ];
+      
+      appState.shoppingList.forEach(({name, checked, associatedMeals}, i) => {
+        // if item found in shopping list, add '(Manually Added)' to associated meals array
+        if (name.trim().toLowerCase() == e.currentTarget.value.trim().toLowerCase()) {
+          let newAssociatedMealsArray = [];
+          if (associatedMeals) {
+            newAssociatedMealsArray = [...associatedMeals, "(Manually Added)"];
+          }
+          else {
+            newAssociatedMealsArray = ["(Manually Added)"];
+          }
+          newShoppigListArray[i] = {name, checked, associatedMeals: newAssociatedMealsArray};
+        }
+        // else { // if item not found in shopping list, just add the item and create an associated meals array with this meal
+        //   newShoppigListArray = [ // with a new array
+        //     ...newShoppigListArray, // that contains all the old items
+        //     { name: ingredient.name, checked: false, associatedMeals: [name] } // and one new item at the end
+        //   ]
+        // }
+      });
+
+      if (!appState.shoppingList.some(({name, checked}, i) => name.trim().toLowerCase() == e.currentTarget.value.trim().toLowerCase())){
+        newShoppigListArray = [ // with a new array
+          ...newShoppigListArray, // that contains all the old items
+          { name: e.currentTarget.value, checked: false, associatedMeals: ['(Manually Added)']} // and one new item at the end
+        ]
       }
-      else {
-        // clear input field
-        e.currentTarget.value = '';
-        e.currentTarget.blur();
-        let checklistContainer = document.querySelector('.checklist-container');
-        checklistContainer.scrollTop = checklistContainer.scrollHeight;
-      }
+      console.log('newShoppingListArray', newShoppigListArray);
+  
+      setAppState((prev) => {
+        return {...prev, shoppingList: newShoppigListArray}
+      });
+
+      // clear input field
+      e.currentTarget.value = '';
+      e.currentTarget.blur();
+      let checklistContainer = document.querySelector('.checklist-container');
+      checklistContainer.scrollTop = checklistContainer.scrollHeight;
     }
   }
 
@@ -262,6 +305,7 @@ export default function ShoppingList({appState, setAppState}) {
       .checkboxes {
         min-width: 18px;
         max-width: 32px;
+        margin-right: 8px;
       }
 
       button {
@@ -283,6 +327,12 @@ export default function ShoppingList({appState, setAppState}) {
 
       .delete-item-icon {
         margin-left: 16px;
+      }
+
+      .multiples-text {
+        font-size: 16px;
+        padding-left: 8px;
+        align-self: center;
       }
 
       .move-icon {
@@ -309,16 +359,25 @@ export default function ShoppingList({appState, setAppState}) {
         {appState.shoppingList.map((item, index) => {
           return (
             <div key={index} className='checklist-item' >
+              {console.log('item', item.associatedMeals)}
               {reorder && (<img className='move-icon' src={upIcon} alt="move up icon" onClick={() => {handleMoveUp(index)}} />)}
               {reorder && (<img className='move-icon' src={downIcon} alt="move down icon" onClick={() => {handleMoveDown(index)}} />)}
               <input  onChange={() => handleCheckboxClick(index)} className='checkboxes'  type='checkbox' checked={item.checked} ></input>
               <label style={{ textDecoration: item.checked ? "line-through" : "none" }} >{item.name}</label>
+              <div className='multiples-text' onClick={() => {
+                setModalItem(item);
+                setDeleteItemIndex(index);
+                setModalOpen("AssociatedMeals");
+
+              }}>
+                {item.associatedMeals && item.associatedMeals.length >= 2 && (`(${item.associatedMeals.length})`)}
+              </div>
               <img className='delete-item-icon' src={deleteIcon} alt="delete item icon" onClick={() => {
                 setModalItem(item);
                 setDeleteItemIndex(index);
                 setModalOpen("deleteItem");
 
-                }} />
+              }} />
             </div>
           )
 
@@ -345,6 +404,16 @@ export default function ShoppingList({appState, setAppState}) {
         setModalOpen={setModalOpen}
         deleteAllItemsFunction={deleteCheckedClick}
         />}
+
+      {modalOpen == "AssociatedMeals" && <AssociatedMealsModal 
+        appState={appState} 
+        setAppState={setAppState} 
+        modalOpen={modalOpen} 
+        setModalOpen={setModalOpen}
+        modalItem={modalItem}
+        setModalItem={setModalItem}
+        modalItemIndex={deleteItemIndex}
+        />}   
 
     </div>
   );
