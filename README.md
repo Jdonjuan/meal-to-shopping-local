@@ -1,3 +1,10 @@
+# What 2 Get deployment steps
+- npm run build
+- npm run deploy
+
+This will deploy to github. see "homepage" on package.json.
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

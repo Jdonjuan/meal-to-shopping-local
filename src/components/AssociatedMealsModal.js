@@ -152,11 +152,14 @@ export default function AssociatedMealsModal({
       ...appState.shoppingList, // that contains all the old items
     ];
 
-    newShoppigListArray[modalItemIndex].associatedMeals = newShoppigListArray[modalItemIndex].associatedMeals.filter((item, i) => i != index );
+    if (newShoppigListArray[modalItemIndex].associatedMeals.length > 1) {
+      newShoppigListArray[modalItemIndex].associatedMeals = newShoppigListArray[modalItemIndex].associatedMeals.filter((item, i) => i != index );
+  
+      setAppState((prev) => {
+        return {...prev, shoppingList: newShoppigListArray}
+      });
+    }
 
-    setAppState((prev) => {
-      return {...prev, shoppingList: newShoppigListArray}
-    });
   }
 
   // function SaveMeal() {
